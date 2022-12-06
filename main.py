@@ -13,7 +13,7 @@ playerImg = pygame.image.load("taco.png")
 playerX = 340
 playerY = 470
 playerX_change = 0
-playerY_change = 0
+# playerY_change = 0
 
 # функция отображения персонажа в окне
 def player(x, y):
@@ -31,27 +31,27 @@ while running:
             if event.key == pygame.K_RIGHT:
                 playerX_change = 0.1
 
-            if event.key == pygame.K_UP:
-                playerY_change = -0.1
-            if event.key == pygame.K_DOWN:
-                playerY_change = 0.1
+#             if event.key == pygame.K_UP:
+#                 playerY_change = -0.1
+#             if event.key == pygame.K_DOWN:
+#                 playerY_change = 0.1
 
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_LEFT or pygame.K_RIGHT or pygame.K_UP or pygame.K_DOWN:
                 playerX_change = 0
-                playerY_change = 0
+#                 playerY_change = 0
 
     playerX += playerX_change
-    playerY += playerY_change
+#     playerY += playerY_change
     if playerX <= 0:
         playerX = 0
     elif playerX >= 736:
         playerX = 736
 
-    if playerY <= 0:
-        playerY = 0
-    elif playerY >= 536:
-        playerY = 536
+#     if playerY <= 0:
+#         playerY = 0
+#     elif playerY >= 536:
+#         playerY = 536
 
     player(playerX, playerY)
     pygame.display.update()  # постоянное обновление окна
