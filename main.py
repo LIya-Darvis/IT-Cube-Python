@@ -26,9 +26,17 @@ def player(x, y):
 # начало работы программы
 running = True  # создание флага
 while running:
+
     for event in pygame.event.get():  # .event для любых событий pygame
         if event.type == pygame.QUIT:  # тип события - выход из программы
             running = False  # аналогично команде break
 
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_LEFT:
+                playerX_change = -0.1
+
+
+    playerX += playerX_change
     player(playerX, playerY)
     pygame.display.update()  # постоянное обновление окна
+
