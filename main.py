@@ -18,7 +18,7 @@ playerImg = pygame.image.load("spaceship.png")
 playerX = 340
 playerY = 470
 playerX_change = 0
-playerY_change = 0
+# playerY_change = 0
 
 # пули
 bulletImg = pygame.image.load('bullet.png')
@@ -28,10 +28,14 @@ bulletX_change = 0
 bulletY_change = 10
 bullet_state = "ready"
 
-
 # функция создания игрока на заданных координатах
 def player(x, y):
     screen.blit(playerImg, (x, y))
+
+def fire_bullet(x, y):
+    global bullet_state
+    bullet_state = "fire"
+    screen.blit(bulletImg, (x + 16, y + 10))
 
 # начало работы программы
 running = True  # создание флага
@@ -45,10 +49,10 @@ while running:
                 playerX_change = -0.1
             if event.key == pygame.K_RIGHT:
                 playerX_change = 0.1
-            if event.key == pygame.K_UP:
-                playerY_change = -0.1
-            if event.key == pygame.K_DOWN:
-                playerY_change = 0.1
+            # if event.key == pygame.K_UP:
+            #     playerY_change = -0.1
+            # if event.key == pygame.K_DOWN:
+            #     playerY_change = 0.1
 
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT or event.key == pygame.K_UP or event.key == pygame.K_DOWN:
@@ -60,12 +64,12 @@ while running:
     elif playerX >= 736:
         playerX = 736
 
-    if playerY <= 0:
-        playerY = 0
-    elif playerY >= 536:
-        playerY = 536
+    # if playerY <= 0:
+    #     playerY = 0
+    # elif playerY >= 536:
+    #     playerY = 536
 
     playerX += playerX_change
-    playerY += playerY_change
+    # playerY += playerY_change
     player(playerX, playerY)
     pygame.display.update()  # постоянное обновление окна
