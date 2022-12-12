@@ -18,7 +18,7 @@ playerImg = pygame.image.load("spaceship.png")
 playerX = 340
 playerY = 470
 playerX_change = 0
-# playerY_change = 0
+playerY_change = 0
 
 # пули
 bulletImg = pygame.image.load('bullet.png')
@@ -52,26 +52,28 @@ while running:
             if event.key == pygame.K_SPACE:
                 if bullet_state is "ready":
                     bulletX = playerX
+                    bulletY = playerY
                     fire_bullet(bulletX, bulletY)
 
-            # if event.key == pygame.K_UP:
-            #     playerY_change = -0.1
-            # if event.key == pygame.K_DOWN:
-            #     playerY_change = 0.1
+            if event.key == pygame.K_UP:
+                playerY_change = -0.1
+            if event.key == pygame.K_DOWN:
+                playerY_change = 0.1
 
         if event.type == pygame.KEYUP:
-            if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
+            if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT or event.key == pygame.K_UP or event.key == pygame.K_DOWN:
                 playerX_change = 0
+                playerY_change = 0
 
     if playerX <= 0:
         playerX = 0
     elif playerX >= 736:
         playerX = 736
 
-    # if playerY <= 0:
-    #     playerY = 0
-    # elif playerY >= 536:
-    #     playerY = 536
+    if playerY <= 0:
+        playerY = 0
+    elif playerY >= 536:
+        playerY = 536
 
     if bulletY <= 0:
         bulletY = 480
@@ -80,9 +82,9 @@ while running:
     if bullet_state is "fire":
         fire_bullet(bulletX, bulletY)
         bulletY -= bulletY_change
-    
+
 
     playerX += playerX_change
-    # playerY += playerY_change
+    playerY += playerY_change
     player(playerX, playerY)
     pygame.display.update()  # постоянное обновление окна
