@@ -20,6 +20,15 @@ playerY = 470
 playerX_change = 0
 playerY_change = 0
 
+# пули
+bulletImg = pygame.image.load('bullet.png')
+bulletX = 0
+bulletY = 480
+bulletX_change = 0
+bulletY_change = 10
+bullet_state = "ready"
+
+
 # функция создания игрока на заданных координатах
 def player(x, y):
     screen.blit(playerImg, (x, y))
