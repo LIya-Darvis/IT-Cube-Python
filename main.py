@@ -18,18 +18,16 @@ bulletImg = pygame.image.load('bullet.png')
 bulletX = 0
 bulletY = 480
 bulletX_change = 0
-bulletY_change = 10
-bullet_state = "ready"
+bulletY_change = 2
+
 
 def fire_bullet(x, y):
-    global bullet_state
-    bullet_state = "fire"
     display.blit(bulletImg, (x + 16, y + 10))
 
 def player(x, y):
     display.blit(playerImg, (x, y))
 
-def run_game(playerX, playerY, playerX_change, bulletX, bulletY, bullet_state):
+def run_game(playerX, playerY, playerX_change, bulletX, bulletY):
     game = True
 
     while game:
@@ -44,7 +42,6 @@ def run_game(playerX, playerY, playerX_change, bulletX, bulletY, bullet_state):
                 if event.key == pygame.K_RIGHT:
                     playerX_change = 0.1
                 if event.key == pygame.K_SPACE:
-                    if bullet_state == "ready":
                         bulletX = playerX
                         bulletY = playerY
                         fire_bullet(bulletX, bulletY)
@@ -61,17 +58,12 @@ def run_game(playerX, playerY, playerX_change, bulletX, bulletY, bullet_state):
         elif playerX >= 736:
             playerX = 736
 
-        if bulletY <= 0:
-            bulletY = 480
-            bullet_state = "ready"
-
-        if bullet_state == "fire":
-            fire_bullet(bulletX, bulletY)
-            bulletY -= bulletY_change
+        fire_bullet(bulletX, bulletY)
+        bulletY -= bulletY_change
 
         playerX += playerX_change
 
         player(playerX, playerY)
         pygame.display.update()
 
-run_game(playerX, playerY, playerX_change, bulletX, bulletY, bullet_state)
+run_game(playerX, playerY, playerX_change, bulletX, bulletY)
