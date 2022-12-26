@@ -1,3 +1,4 @@
+import random
 import pygame
 
 pygame.init()
@@ -19,6 +20,21 @@ bulletX = 0
 bulletY = 480
 bulletX_change = 0
 bulletY_change = 2
+
+enemyImg = []
+enemyX = []
+enemyY = []
+enemyX_change = []
+enemyY_change = []
+num_of_enemies = 2
+
+for i in range(num_of_enemies):
+    enemyImg.append(pygame.image.load("ufo.png"))
+    enemyX.append(random.randint(0, 736))
+    enemyY.append(random.randint(50, 150))
+    enemyX_change.append(4)
+    enemyY_change.append(40)
+
 
 
 def fire_bullet(x, y):
@@ -49,7 +65,6 @@ def run_game(playerX, playerY, playerX_change, bulletX, bulletY):
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
                     playerX_change = 0
-
 
         display.fill((5, 5, 10))
 
