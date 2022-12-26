@@ -1,3 +1,4 @@
+import math
 import random
 import pygame
 
@@ -46,6 +47,13 @@ def player(x, y):
 def enemy(x, y, i):
     display.blit(enemyImg[i], (x, y))
 
+def isCollision(enemyX, enemyY, bulletX, bulletY):
+    distance = math.sqrt(math.pow(enemyX - bulletX, 2) + (math.pow(enemyY - bulletY, 2)))
+    if distance < 27:
+        return True
+    else:
+        return False
+
 def run_game(playerX, playerY, playerX_change, bulletX, bulletY):
     game = True
 
@@ -78,6 +86,12 @@ def run_game(playerX, playerY, playerX_change, bulletX, bulletY):
 
 
         for i in range(num_of_enemies):
+
+            if enemyY[i] > 440:
+                for j in range(num_of_enemies):
+                    enemyY[j] = 2000
+                break
+
             enemyX[i] += enemyX_change[i]
             if enemyX[i] <= 0:
                 enemyX_change[i] = 0.5
@@ -85,6 +99,13 @@ def run_game(playerX, playerY, playerX_change, bulletX, bulletY):
             elif enemyX[i] >= 736:
                 enemyX_change[i] = -0.5
                 enemyY[i] += enemyY_change[i]
+
+            collision = isCollision(enemyX[i], enemyY[i], bulletX, bulletY)
+            if collision:
+                bulletY = 480
+                bullet_state = "ready"
+                enemyX[i] = random.randint(0, 736)
+                enemyY[i] = random.randint(50, 150)
 
             enemy(enemyX[i], enemyY[i], i)
 
