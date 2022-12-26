@@ -19,21 +19,21 @@ bulletImg = pygame.image.load('bullet.png')
 bulletX = 0
 bulletY = 480
 bulletX_change = 0
-bulletY_change = 2
+bulletY_change = 10
 
 enemyImg = []
 enemyX = []
 enemyY = []
 enemyX_change = []
 enemyY_change = []
-num_of_enemies = 2
+num_of_enemies = 10
 
 for i in range(num_of_enemies):
     enemyImg.append(pygame.image.load("ufo.png"))
     enemyX.append(random.randint(0, 736))
     enemyY.append(random.randint(50, 150))
-    enemyX_change.append(4)
-    enemyY_change.append(40)
+    enemyX_change.append(0.05)
+    enemyY_change.append(20)
 
 
 
@@ -42,6 +42,9 @@ def fire_bullet(x, y):
 
 def player(x, y):
     display.blit(playerImg, (x, y))
+
+def enemy(x, y, i):
+    display.blit(enemyImg[i], (x, y))
 
 def run_game(playerX, playerY, playerX_change, bulletX, bulletY):
     game = True
@@ -54,9 +57,9 @@ def run_game(playerX, playerY, playerX_change, bulletX, bulletY):
 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_LEFT:
-                    playerX_change = -0.1
+                    playerX_change = -0.8
                 if event.key == pygame.K_RIGHT:
-                    playerX_change = 0.1
+                    playerX_change = 0.8
                 if event.key == pygame.K_SPACE:
                         bulletX = playerX
                         bulletY = playerY
@@ -72,6 +75,19 @@ def run_game(playerX, playerY, playerX_change, bulletX, bulletY):
             playerX = 0
         elif playerX >= 736:
             playerX = 736
+
+
+        for i in range(num_of_enemies):
+            enemyX[i] += enemyX_change[i]
+            if enemyX[i] <= 0:
+                enemyX_change[i] = 0.5
+                enemyY[i] += enemyY_change[i]
+            elif enemyX[i] >= 736:
+                enemyX_change[i] = -0.5
+                enemyY[i] += enemyY_change[i]
+
+            enemy(enemyX[i], enemyY[i], i)
+
 
         fire_bullet(bulletX, bulletY)
         bulletY -= bulletY_change
