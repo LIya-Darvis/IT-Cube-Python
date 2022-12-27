@@ -29,14 +29,24 @@ enemyX_change = []
 enemyY_change = []
 num_of_enemies = 10
 
+# счет игрока
+global score_value
+score_value = 0
+font = pygame.font.Font('freesansbold.ttf', 25)
+textX = 15
+textY = 15
+
 for i in range(num_of_enemies):
     enemyImg.append(pygame.image.load("ufo.png"))
     enemyX.append(random.randint(0, 736))
     enemyY.append(random.randint(50, 150))
     enemyX_change.append(0.05)
     enemyY_change.append(20)
+    
 
-
+def show_score(x, y):
+    score = font.render("Счет: " + str(score_value), True, (255, 255, 255))
+    display.blit(score, (x, y))
 
 def fire_bullet(x, y):
     display.blit(bulletImg, (x + 16, y + 10))
@@ -55,6 +65,7 @@ def isCollision(enemyX, enemyY, bulletX, bulletY):
         return False
 
 def run_game(playerX, playerY, playerX_change, bulletX, bulletY):
+    global score_value
     game = True
 
     while game:
@@ -102,6 +113,7 @@ def run_game(playerX, playerY, playerX_change, bulletX, bulletY):
 
             collision = isCollision(enemyX[i], enemyY[i], bulletX, bulletY)
             if collision:
+                score_value += 1
                 bulletY = 480
                 bullet_state = "ready"
                 enemyX[i] = random.randint(0, 736)
@@ -116,6 +128,7 @@ def run_game(playerX, playerY, playerX_change, bulletX, bulletY):
         playerX += playerX_change
 
         player(playerX, playerY)
+        show_score(textX, textY)
         pygame.display.update()
 
 run_game(playerX, playerY, playerX_change, bulletX, bulletY)
